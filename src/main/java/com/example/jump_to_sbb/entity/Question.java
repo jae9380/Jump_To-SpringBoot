@@ -1,24 +1,26 @@
-package com.example.jump_to_sbb.Entity;
+package com.example.jump_to_sbb.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
-public class Answer {
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(length = 200)
+    private String subject;
+
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @CreatedDate
     private LocalDateTime createDate;
 
-    @ManyToOne
-    private Question question;
+    @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
+    private List<Answer> answerList;
 }
