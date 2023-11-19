@@ -57,10 +57,31 @@ QuestionRepository는 JpaRepository 인터페이스를 상속했다.
 JpaRepository를 상속할 때는 제네릭스 타입으로 <Question, Integer> 처럼 리포지터리의 대상이 되는 엔티티의 타입(Question)과 해당 엔티티의 Primary Key 의 속성 타입(Integer)을 지정해야 한다.    
 이것은 JpaRepository를 생성하기 위한 규칙이다.
 
+<details>
+<summary> TestCode  </summary>
+<div markdown="1">
+
 * '@Autowired' 객체를 주입하기 위해 사용하는 스프링의 어노테이션이다. 객체 주입 방법에는 @Autowired외 Setter 또는 생성자를 이용하는 방법이 있다.   @Autowired방식 보다는 생성자를 통한 객체 주입방식을 권장한다.   하지만 테스트 코드의 경우 생성자를 통한 객체의 주입 방식이 불가능하므로 테스트 코드 작성시 @Autowired방식을 사용
 
 H2기반의 데이터 베이스는 파일 기반의 데이터 베이스이기 때문에 로컬서버에서 이미 구동중이면 오류가 발생된다. 
 
+* .findAll은 데이터 조회 시 사용하는 메소드
+* .findById Id값으로 데이터를 조회한다. 해당 메소드의 리턴타입은 Optional이다. 
+* findBySubject Question레포지터리는 findBySubject와 같은 메소드를 기본적으로 제공하지 않는다. 그래서 레포지터리에 인터페이스를 변경해야 한다.
+  * JpaRepository를 상속한 QuestionRepository객체를 생성될 때 스피링이 자동으로 QuestionRepository 객체를 생성한다. 이 때 프록시 패턴이 사용된다고 한다. 리포지터리 객체의 메서드가 실행될때 JPA가 해당 메서드명을 분석하여 쿼리를 만들고 실행한다.
+* findBySubjectAndContent 두개의 속성을 And 기준으로 조회할 때 레포지터리에 메소드를 선언한다.
+  * > And - findBySubjectAndContent(String subject, String content)      
+     Or - findBySubjectOrContent(String subject, String content)   
+     Between - findByCreateDateBetween(LocalDateTime fromDate, LocalDateTime toDate)  등 등..
+* findBySubjectLike  Like검색을 위해서 메소드의 입력 문자열로 " ~ %"와 같이 작성을 한다.
+  *  ~ % -> " ~ "으로 시작하는 문자열
+  *  % ~ -> " ~ "으로 끝나는 문자열
+  *  % ~ % -> " ~ "를 내포하고 있는 문자열
+* dataModify 해당 데이터를 optional의 isPresent메소드를 사용하여 값이 있으면 세터를 이용하여 값을 수정한다.
+* dataDelete modify 코드와 비슷하다. 마지막에 세터 대신 delete를 한다
+
+</div>
+</details>
 
 </div>
 </details>
