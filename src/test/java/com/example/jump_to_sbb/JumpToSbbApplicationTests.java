@@ -1,7 +1,10 @@
 package com.example.jump_to_sbb;
 
+import com.example.jump_to_sbb.entity.Answer;
 import com.example.jump_to_sbb.entity.Question;
+import com.example.jump_to_sbb.repository.AnswerRepository;
 import com.example.jump_to_sbb.repository.QuestionRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,5 +100,44 @@ class JumpToSbbApplicationTests {
 		Question q = oq.get();
 		this.questionRepository.delete(q);
 		assertEquals(1, this.questionRepository.count());
+	}
+
+	@Autowired
+	private AnswerRepository answerRepository;
+	@DisplayName("creatAnswerData")
+	@Test
+	void testJpaRepository9(){
+		Optional<Question> oq = this.questionRepository.findById(2);
+		assertTrue(oq.isPresent());
+		Question q = oq.get();
+
+		Answer a = new Answer();
+		a.setContent("네 자동으로 생성됩니다.");
+		a.setQuestion(q);  // 어떤 질문의 답변인지 알기위해서 Question 객체가 필요하다.
+		a.setCreateDate(LocalDateTime.now());
+		this.answerRepository.save(a);
+	}
+
+	@DisplayName("selectAnswer")
+	@Test
+	void testJpaRepository10(){
+		Optional<Answer> oa = this.answerRepository.findById(1);
+		assertTrue(oa.isPresent());
+		Answer a = oa.get();
+		assertEquals(2, a.getQuestion().getId());
+	}
+
+	@DisplayName("findAnswerAndQuestion")
+	@Transactional
+	@Test
+	void testJpaRepository11(){
+		Optional<Question> oq = this.questionRepository.findById(2);
+		assertTrue(oq.isPresent());
+		Question q = oq.get();
+
+		List<Answer> answerList = q.getAnswerList();
+
+		assertEquals(1, answerList.size());
+		assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
 	}
 }

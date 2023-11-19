@@ -65,21 +65,27 @@ JpaRepository를 상속할 때는 제네릭스 타입으로 <Question, Integer> 
 
 H2기반의 데이터 베이스는 파일 기반의 데이터 베이스이기 때문에 로컬서버에서 이미 구동중이면 오류가 발생된다. 
 
-* .findAll은 데이터 조회 시 사용하는 메소드
-* .findById Id값으로 데이터를 조회한다. 해당 메소드의 리턴타입은 Optional이다. 
-* findBySubject Question레포지터리는 findBySubject와 같은 메소드를 기본적으로 제공하지 않는다. 그래서 레포지터리에 인터페이스를 변경해야 한다.
+* .findAll:  데이터 조회 시 사용하는 메소드
+* .findById : Id값으로 데이터를 조회한다. 해당 메소드의 리턴타입은 Optional이다. 
+* findBySubject : Question레포지터리는 findBySubject와 같은 메소드를 기본적으로 제공하지 않는다. 그래서 레포지터리에 인터페이스를 변경해야 한다.
   * JpaRepository를 상속한 QuestionRepository객체를 생성될 때 스피링이 자동으로 QuestionRepository 객체를 생성한다. 이 때 프록시 패턴이 사용된다고 한다. 리포지터리 객체의 메서드가 실행될때 JPA가 해당 메서드명을 분석하여 쿼리를 만들고 실행한다.
-* findBySubjectAndContent 두개의 속성을 And 기준으로 조회할 때 레포지터리에 메소드를 선언한다.
+* findBySubjectAndContent : 두개의 속성을 And 기준으로 조회할 때 레포지터리에 메소드를 선언한다.
   * > And - findBySubjectAndContent(String subject, String content)      
      Or - findBySubjectOrContent(String subject, String content)   
      Between - findByCreateDateBetween(LocalDateTime fromDate, LocalDateTime toDate)  등 등..
-* findBySubjectLike  Like검색을 위해서 메소드의 입력 문자열로 " ~ %"와 같이 작성을 한다.
+* findBySubjectLike : Like검색을 위해서 메소드의 입력 문자열로 " ~ %"와 같이 작성을 한다.
   *  ~ % -> " ~ "으로 시작하는 문자열
   *  % ~ -> " ~ "으로 끝나는 문자열
   *  % ~ % -> " ~ "를 내포하고 있는 문자열
-* dataModify 해당 데이터를 optional의 isPresent메소드를 사용하여 값이 있으면 세터를 이용하여 값을 수정한다.
-* dataDelete modify 코드와 비슷하다. 마지막에 세터 대신 delete를 한다
+* dataModify : 해당 데이터를 optional의 isPresent메소드를 사용하여 값이 있으면 세터를 이용하여 값을 수정한다.
+* dataDelete modify : 코드와 비슷하다. 마지막에 세터 대신 delete를 한다
 
+<hr>
+
+* creatAnswerData : 답변 데이터를 생성하기위해 질문 데이터가 필요하므로 질문 데이터를 갖고온 다음 Answer 엔티티의 question 속성에 갖고온 질문 데이터를 대입하여 답변 데이터를 생서
+* selectAnswer : id값이 1인 answer 데이터를 조회 및 question id가 2인지 확인
+* answer엔티티의 질문 속성을 이용하면 답변과 연결된 질문을 조회할 수 있다. 반대로 질문에서 답변을 조회할 수 있다.
+해당 테스트 코드를 그냥 실행하면 question리포지터리가 findById를 호출하여 객체를 조회하면 DB와의 세션이 끊어지기 때문에 문제가 생긴다. 해당 문제를 해결하기 위해서 @Transactional 어노테이션을 사용하여 DB세션을 유지 시킨다.
 </div>
 </details>
 
