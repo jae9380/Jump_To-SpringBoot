@@ -91,3 +91,37 @@ H2기반의 데이터 베이스는 파일 기반의 데이터 베이스이기 �
 
 </div>
 </details>
+
+<hr>
+
+<details>
+<summary> Template  </summary>
+<div markdown="4">
+
+`@RequiredArgsConstructor`은 final이 붙은 속성을 포함하는 생성자를 자동으로 생성하는 역활을 한다. 
+롬복의 @Getter,Setter처럼 자동으로 메소드를 생성하는 것과 마찬가지다.
+
+> #### 스프링의 의존성 주입 방식   
+> * `@Auot-wired` 속성 - 속성에 @Auot-wired어노테이션을 적용하여 객체를 주입
+> * 생성자 - 생성자를 작성하여 객체를 주입하는 방식
+> * Setter - Setter 메소드를 작성하여 객체를 주입하는 방식
+>    * 메소드에 @Auot-wired 사용하여 객체를 주입
+
+* 타임리프의 속성
+  * 분기문 속성
+    * ``` th:if="${question != null}" ```
+    * question객체가 null이 아닌 경우 해당 엘리먼트가 표시
+  * 반복문 속성
+    * ``` th:each="question : ${questionList}" ```
+    * 해당 코드는 for-each문과 유사하다.
+    * ```th:each="question, loop : ${questionList}"```
+    * 위 `loop`를 사용하여 속성을 사용할 수 있다.
+  
+  | loop.  | 기능                      | loop.    | 기능                                   |  
+  |--------|-------------------------|----------|--------------------------------------|  
+  | .index | 반복 순서, 0부터 1씩 증가        | .count   | 반복순서, 1부터 1씩 증가                      |
+  | .size  | 반복 객체의 요소 갯수            | .first   | 루프의 첫번째 순서인 경우 -> true               |
+  | .last  | 루프의 마지막 순서인 경우 -> true  | .odd     | 루프의 홀수번째 순서인 경우 -> true              |
+  | .even  | 루프의 짝수번째 순서인 경우 -> true | .current | 현재 대입된 객체 <br/>ex) 위 경우 question과 동일 |
+</div>
+</details>

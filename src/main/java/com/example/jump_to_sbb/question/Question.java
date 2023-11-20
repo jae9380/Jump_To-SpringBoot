@@ -1,5 +1,6 @@
-package com.example.jump_to_sbb.entity;
+package com.example.jump_to_sbb.question;
 
+import com.example.jump_to_sbb.answer.Answer;
 import jakarta.persistence.*;
 import lombok.Data;
 

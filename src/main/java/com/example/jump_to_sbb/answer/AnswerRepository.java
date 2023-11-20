@@ -1,6 +1,5 @@
-package com.example.jump_to_sbb.repository;
+package com.example.jump_to_sbb.answer;
 
-import com.example.jump_to_sbb.entity.Answer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AnswerRepository extends JpaRepository<Answer, Integer> {

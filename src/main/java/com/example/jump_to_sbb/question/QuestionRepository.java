@@ -1,6 +1,5 @@
-package com.example.jump_to_sbb.repository;
+package com.example.jump_to_sbb.question;
 
-import com.example.jump_to_sbb.entity.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

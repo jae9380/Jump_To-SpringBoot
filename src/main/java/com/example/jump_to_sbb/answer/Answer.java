@@ -1,5 +1,6 @@
-package com.example.jump_to_sbb.entity;
+package com.example.jump_to_sbb.answer;
 
+import com.example.jump_to_sbb.question.Question;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;

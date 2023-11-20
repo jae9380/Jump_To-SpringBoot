@@ -1,9 +1,9 @@
 package com.example.jump_to_sbb;
 
-import com.example.jump_to_sbb.entity.Answer;
-import com.example.jump_to_sbb.entity.Question;
-import com.example.jump_to_sbb.repository.AnswerRepository;
-import com.example.jump_to_sbb.repository.QuestionRepository;
+import com.example.jump_to_sbb.answer.Answer;
+import com.example.jump_to_sbb.question.Question;
+import com.example.jump_to_sbb.answer.AnswerRepository;
+import com.example.jump_to_sbb.question.QuestionRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
